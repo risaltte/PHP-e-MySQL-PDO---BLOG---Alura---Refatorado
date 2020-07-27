@@ -5,6 +5,6 @@ Este e o projeto do curso PHP e MySQL: Introdução a uma webapp da Alura refato
 - Injeção de Dependência
 - Static Creation Method
 - Repositório
-- Controle de Transação (Pendente)
+- Controle de Transação
 - Tratamento de Erros (Pendente)
 

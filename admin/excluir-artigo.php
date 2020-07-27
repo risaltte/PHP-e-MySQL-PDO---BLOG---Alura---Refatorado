@@ -6,13 +6,20 @@ use Risaltte\Blog\InfraStructure\Repository\PdoArticleRepository;
 require __DIR__ . '/../vendor/autoload.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $connection = ConnectionCreator::createConnection();
-    $articleRepository = new PdoArticleRepository($connection);
-
-    $articleRepository->removeArticle($_POST['id']);
-
-    // POST REDIRECT GET
-    redirect('/blog2/admin/index.php'); 
+    try {
+        $connection = ConnectionCreator::createConnection();
+        $articleRepository = new PdoArticleRepository($connection);
+    
+        $articleRepository->removeArticle($_POST['id']);
+    
+        // POST REDIRECT GET
+        redirect('/blog2/admin/index.php'); 
+    
+    } catch (\Exception $e) {
+        $errorMessage = $e->getMessage();
+        redirect("/blog2/error-page.php?errorMessage=$errorMessage");
+    }
+   
 }
 
 ?>

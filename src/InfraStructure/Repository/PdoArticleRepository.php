@@ -17,12 +17,11 @@ class PdoArticleRepository implements ArticleRepository
     public function allArticles(): array
     {
         $sqlQuery = "SELECT id, titulo, conteudo FROM artigos;";
-        
-        $stmt = $this->connection->query($sqlQuery);
-        $articles = $stmt->fetchAll();
+            
+            $stmt = $this->connection->query($sqlQuery);
+            $articles = $stmt->fetchAll();
 
-        return $articles;
-
+            return $articles;
     }
 
     public function findById(int $id): array
@@ -68,4 +67,5 @@ class PdoArticleRepository implements ArticleRepository
 
         return $stmt->execute();
     }
+
 }

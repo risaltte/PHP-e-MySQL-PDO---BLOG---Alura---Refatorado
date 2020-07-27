@@ -5,10 +5,16 @@ use Risaltte\Blog\InfraStructure\Repository\PdoArticleRepository;
 
 require 'vendor/autoload.php';
 
-$connection = ConnectionCreator::createConnection();
-$articleRepository = new PdoArticleRepository($connection);
+try {
+    $connection = ConnectionCreator::createConnection();
+    $articleRepository = new PdoArticleRepository($connection);
 
-$article = $articleRepository->findById($_GET['id']);
+    $article = $articleRepository->findById($_GET['id']);
+
+} catch (\Exception $e) {
+    $errorMessage = $e->getMessage();
+    redirect("/blog2/error-page.php?errorMessage=$errorMessage");
+}
 
 ?>
 

@@ -5,17 +5,25 @@ use Risaltte\Blog\InfraStructure\Repository\PdoArticleRepository;
 
 include __DIR__ . '/../vendor/autoload.php';
 
-$connection = ConnectionCreator::createConnection();
-$articleRepository = new PdoArticleRepository($connection);
+try {
+    $connection = ConnectionCreator::createConnection();
+    $articleRepository = new PdoArticleRepository($connection);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $articleRepository->editArticle($_POST['id'], $_POST['titulo'], $_POST['conteudo']);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $articleRepository->editArticle($_POST['id'], $_POST['titulo'], $_POST['conteudo']);
 
-    // POST REDIRECT GET
-    redirect('/blog2/admin/index.php');
+        // POST REDIRECT GET
+        redirect('/blog2/admin/index.php');
+    }
+
+    $article = $articleRepository->findById($_GET['id']);
+    
+} catch (\Exception $e) {
+    $errorMessage = $e->getMessage();
+    redirect("/blog2/error-page.php?errorMessage=$errorMessage");
 }
 
-$article = $articleRepository->findById($_GET['id']);
+
 
 ?>
 
